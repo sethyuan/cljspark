@@ -1,5 +1,5 @@
 (ns cav.cljspark
-  (:import [org.apache.spark.api.java JavaSparkContext JavaRDD]
+  (:import [org.apache.spark.api.java JavaSparkContext]
            [org.apache.spark SparkConf]))
 
 (defn context-with-conf
@@ -18,3 +18,33 @@
      (if env (doseq [[k v] env] (.setExecutorEnv conf k v)))
      (if config (doseq [[k v] config] (.set conf k v)))
      (JavaSparkContext. conf))))
+
+(declare ^:dynamic ^JavaSparkContext *sc*)
+
+(defmacro with-context
+  "Make context implicit for easier usage."
+  [sc & body]
+  `(binding [*sc* ~sc]
+     ~@body))
+
+(defn parallelize
+  "sc.parallelize"
+  ([coll] (parallelize coll 1))
+  ([coll slices] (.parallelize *sc* coll slices)))
+
+(defn text-file
+  "sc.textFile"
+  ([path] (text-file path 1))
+  ([path min-partitions]
+   (.textFile *sc* path min-partitions)))
+
+(defn broadcast
+  "sc.broadcast"
+  [x]
+  (.broadcast *sc* x))
+
+
+(comment
+
+
+  )

@@ -4,4 +4,5 @@
   :license {:name "MIT"}
   :dependencies [[org.clojure/clojure "1.6.0"]]
   :profiles {:dev {:dependencies [[org.clojure/tools.trace "0.7.8"]]}
-             :provided {:dependencies [[org.apache.spark/spark-core_2.10 "1.0.0"]]}})
+             :provided {:dependencies [[org.apache.spark/spark-core_2.10 "1.0.0"]]}
+             :test {:aot :all}})
