@@ -5,16 +5,32 @@ Clojure wrapper for Spark.
 ## Installation
 
 ```clojure
-[cljspark "0.1.0"]
+[cav/cljspark "0.1.0-SNAPSHOT"]
 ```
 
 ## Example
 
-See unit tests.
+```clojure
+(ns sample
+  (:require [cav.cljspark :as spark]
+            [cav.cljspark.rdd :as rdd]
+            [clojure.string :as string]))
+
+(def sc (spark/context :app-name "Sample"
+                       :master "local[3]"))
+
+(spark/with-context sc
+  (let [file (spark/text-file "hdfs://...")
+        word-count (->> file
+                        (rdd/mapcat #(string/split % #" "))
+                        (rdd/filter (complement string/blank?))
+                        (rdd/count))]
+    (println "There are " word-count " words.")))
+```
 
 ## API
 
-TBD
+You have to browse the source code for now.
 
 ## License
 
