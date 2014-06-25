@@ -4,9 +4,7 @@ Clojure wrapper for Spark.
 
 ## Installation
 
-```clojure
-[cav/cljspark "0.1.0-SNAPSHOT"]
-```
+[![cav/cljspark](http://clojars.org/cav/cljspark/latest-version.svg)](http://clojars.org/cav/cljspark)
 
 ## Example
 
